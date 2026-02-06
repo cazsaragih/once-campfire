@@ -17,6 +17,10 @@ class ProcessMonitor
   private
     def process_list(procfile)
       config = YAML.load_file(procfile)
+
+      # Skip Redis if using managed Redis service (REDIS_URL env var is set)
+      config = config.reject { |name, _| name == "redis" } if ENV["REDIS_URL"]
+
       config.map { |name, cmd| MonitoredProcess.new(name, cmd) }
     end
 
