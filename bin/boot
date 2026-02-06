@@ -3,6 +3,10 @@
 require "json"
 require "yaml"
 
+# Cloud platforms (e.g. Railway) set PORT for the app to bind to.
+# Thruster reads HTTP_PORT, so forward it.
+ENV["HTTP_PORT"] = ENV["PORT"] if ENV["PORT"]
+
 class ProcessMonitor
   SIGNALS = %w[ INT TERM CLD ]
 
