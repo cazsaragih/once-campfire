@@ -70,11 +70,6 @@ Rails.application.configure do
   # Cache in memory for now
   config.cache_store = :redis_cache_store, { url: ENV.fetch("REDIS_URL", "redis://localhost:6379") }
 
-  # Assets are cacheable
-  config.public_file_server.headers = {
-    "Cache-Control" => "public, max-age=#{30.days.to_i}"
-  }
-
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
