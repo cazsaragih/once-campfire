@@ -18,12 +18,16 @@ In the service's **Variables** tab, add:
 RAILS_ENV=production
 DISABLE_SSL=true
 HTTP_PORT=${{PORT}}
+WEB_CONCURRENCY=2
+RESQUE_WORKERS=2
 SECRET_KEY_BASE=<run `openssl rand -hex 64` to generate>
 VAPID_PUBLIC_KEY=<your-public-key>
 VAPID_PRIVATE_KEY=<your-private-key>
 ```
 
-The critical one is `HTTP_PORT=${{PORT}}` — Railway dynamically assigns a port, and Thruster (the reverse proxy) needs to bind to it.
+Key variables:
+- `HTTP_PORT=${{PORT}}` — Railway dynamically assigns a port; Thruster (the reverse proxy) needs to bind to it
+- `WEB_CONCURRENCY` / `RESQUE_WORKERS` — caps Puma and Resque worker counts to avoid OOM kills on small containers
 
 Generate VAPID keys locally:
 
@@ -51,5 +55,6 @@ Visit your Railway URL and create your admin account.
 - Redis runs embedded in the container (via Procfile) — no external Redis service needed
 - Railway handles SSL termination; `DISABLE_SSL=true` tells Rails not to enforce SSL internally
 - `${{PORT}}` is Railway's variable reference syntax — it injects the actual port at runtime
+- By default, Puma and Resque scale workers to the host CPU count, which is too many for small containers — set `WEB_CONCURRENCY` and `RESQUE_WORKERS` to 2 each
 - SQLite means only one replica can run at a time
 - The $5 trial credit is enough for initial testing; after that Railway charges based on usage
