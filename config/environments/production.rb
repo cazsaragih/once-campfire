@@ -88,4 +88,7 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   config.active_job.queue_adapter = :resque
+
+  # Allow requests from any host (cloud platforms use dynamic domains)
+  config.hosts.clear
 end
