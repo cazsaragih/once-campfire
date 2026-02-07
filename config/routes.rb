@@ -24,9 +24,10 @@ Rails.application.routes.draw do
       resource :custom_styles, only: %i[ edit update ]
     end
 
-    get "dashboard",        to: "accounts/dashboard#index", as: :dashboard
-    get "dashboard/:table", to: "accounts/dashboard#show",  as: :dashboard_table
   end
+
+  get "account/dashboard",        to: "accounts/dashboard#index", as: :account_dashboard
+  get "account/dashboard/:table", to: "accounts/dashboard#show",  as: :account_dashboard_table
 
   direct :fresh_account_logo do |options|
     route_for :account_logo, v: Current.account&.updated_at&.to_fs(:number), size: options[:size]
