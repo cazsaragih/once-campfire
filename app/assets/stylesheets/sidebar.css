@@ -1,35 +1,57 @@
 /* Sidebar */
 :root {
-  --sidebar-inline-space: max(calc(var(--inline-space) * 1.5), 1vw);
+  --sidebar-inline-space: 16px;
   --sidebar-tools-height: calc(var(--block-space) + var(--btn-size) + (var(--block-space) * 2));
 }
 
 .sidebar__container {
   block-size: 100dvh;
+  color: var(--color-sidebar-text);
+  display: flex;
+  flex-direction: column;
   max-block-size: 100dvh;
   padding-block-end: var(--sidebar-tools-height);
 }
 
 .sidebar__tools {
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background-color: var(--color-sidebar-bg);
+  border-block-start: 1px solid var(--color-sidebar-border);
   inset: auto 0 0 0;
   padding-block: calc(var(--block-space) * 1.5);
   padding-inline: var(--sidebar-inline-space);
   position: fixed;
 
   @media (min-width: 100ch) {
-    inline-size: calc(var(--sidebar-width));
-    inset-inline-start: auto;
+    inline-size: var(--sidebar-width);
+    inset-inline-end: auto;
+    inset-inline-start: 0;
+  }
+
+  .btn {
+    color: var(--color-sidebar-text-muted);
+
+    @media (any-hover: hover) {
+      &:where(:not(:active):hover) {
+        color: var(--color-sidebar-text);
+      }
+    }
+  }
+
+  img {
+    filter: invert(100%);
+
+    @media (prefers-color-scheme: dark) {
+      filter: invert(0%);
+    }
   }
 }
 
 .sidebar__toggle {
   inset-block-start: var(--block-space-half);
-  inset-inline-start: calc((var(--btn-size) + max(var(--inline-space), 1vw)) * -1);
+  inset-inline-end: calc((var(--btn-size) + max(var(--inline-space), 1vw)) * -1);
   position: absolute;
   transition:
-    inset-inline-start 300ms ease,
+    inset-inline-end 300ms ease,
     border-color 300ms ease,
     background-color 300ms ease;
   z-index: 5;
@@ -60,59 +82,96 @@
     inset-block-start: var(--block-space);
 
     @media (max-width: 100ch) {
-      inset-inline-start: var(--sidebar-inline-space);
+      inset-inline-end: var(--sidebar-inline-space);
 
       & img {
-        filter: invert(0);
+        filter: invert(100%);
       }
 
       @media (prefers-color-scheme: dark) {
         & img {
-          filter: invert(100%);
+          filter: invert(0%);
         }
       }
     }
   }
 }
 
-/* Direct messsages */
-.directs {
-  --btn-border-color: var(--color-border-darker);
-  --column-gap: calc(var(--inline-space) / 1.5);
+/* Workspace header */
+.sidebar__workspace-header {
+  align-items: center;
+  border-block-end: 1px solid var(--color-sidebar-border);
+  display: flex;
+  gap: var(--inline-space);
+  padding: var(--block-space) var(--sidebar-inline-space);
+}
 
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  display: grid;
-  grid-auto-columns: minmax(auto, max-content);
-  grid-auto-flow: column;
-  inset: 0 0 auto 0;
-  justify-content: start;
-  overscroll-behavior: auto;
-  margin-block-end: var(--block-space-half);
-  padding-block: var(--block-space) var(--block-space-half);
-  padding-inline: var(--sidebar-inline-space) calc(var(--sidebar-inline-space) + var(--column-gap));
-  position: sticky;
-  z-index: 3;
+.sidebar__workspace-name {
+  color: var(--color-sidebar-text);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-  .open & {
-    @media (max-width: 100ch) {
-      -webkit-mask-image: linear-gradient(to left, oklch(0% 0 0 / 1) 85%, oklch(0% 0 0 / 0) 99%);
-      mask-image: linear-gradient(to left, oklch(0% 0 0 / 1) 85%, oklch(0% 0 0 / 0) 99%);
-      padding-inline-start: calc(var(--btn-size) + var(--sidebar-inline-space) + (var(--column-gap) * 2.5));
+.sidebar__workspace-logo {
+  block-size: 28px;
+  border-radius: 6px;
+  inline-size: 28px;
+  object-fit: cover;
+}
+
+/* Sections */
+.sidebar__section {
+  padding-block: var(--block-space-half);
+}
+
+.sidebar__section-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-block: var(--block-space-half);
+  padding-inline: var(--sidebar-inline-space);
+}
+
+.sidebar__section-title {
+  color: var(--color-sidebar-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.sidebar__section-action {
+  color: var(--color-sidebar-text-muted);
+  text-decoration: none;
+
+  @media (any-hover: hover) {
+    &:where(:not(:active):hover) {
+      color: var(--color-sidebar-text);
     }
   }
 
-  &.directs--new {
-    --column-gap: var(--inline-space);
-    --row-gap: 2px;
+  img {
+    filter: invert(100%);
 
-    -webkit-mask-image: none;
-    mask-image: none;
-    padding-inline-end: var(--sidebar-inline-space);
+    @media (prefers-color-scheme: dark) {
+      filter: invert(0%);
+    }
   }
 }
 
-.directs--edit  {
+/* Direct messages */
+.directs {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.directs--edit {
   display: grid;
   gap: var(--inline-space);
   grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
@@ -128,27 +187,44 @@
   }
 }
 
+.directs--new {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
 .direct {
-  border-radius: 0.3em;
+  align-items: center;
+  border-radius: 6px;
   box-shadow: none;
-  color: var(--color-text);
-  display: grid;
-  justify-items: center;
+  color: var(--color-sidebar-text-muted);
+  display: flex;
+  gap: 8px;
+  margin-inline: 8px;
+  padding: 4px 8px;
   position: relative;
   text-decoration: none;
 
   .avatar,
   .avatar__group {
-    margin-inline: calc(var(--inline-space) / 1.5);
+    flex-shrink: 0;
 
     .avatar {
       margin-inline: 0;
     }
   }
 
+  .avatar__group {
+    margin-inline: 0;
+  }
+
   @media (any-hover: hover) {
+    &:where(:not(:active):hover) {
+      background-color: var(--color-sidebar-bg-hover);
+    }
+
     &:where(:not(:active):hover) .avatar:not(.avatar--icon) {
-      filter: brightness(0.7);
+      filter: none;
     }
   }
 
@@ -156,10 +232,16 @@
   &:where(:not(:active)):focus-visible {
     outline: 0;
   }
+
+  &.unread {
+    color: var(--color-sidebar-unread);
+    font-weight: 700;
+  }
 }
 
 .direct__new {
-  margin-inline-end: var(--inline-space-half);
+  color: var(--color-sidebar-text-muted);
+  margin-inline-end: 0;
 
   .avatar {
     margin-inline: 0;
@@ -169,35 +251,24 @@
 .direct__author {
   --column-gap: 0.3ch;
 
-  margin-block-start: 0.1em;
+  margin-block-start: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   .unread & {
-    font-weight: 800;
-    position: relative;
-
-    &::after {
-      --size: 0.6em;
-
-      aspect-ratio: 1;
-      background-color: var(--color-text);
-      block-size: var(--size);
-      border-radius: calc(var(--size) * 2);
-      content: "";
-      flex-shrink: 0;
-      inline-size: var(--size);
-      position: absolute;
-      inset: 1.3em auto auto 50%;
-      transform: translate(-50%);
-    }
+    font-weight: 700;
   }
 }
 
 /* Rooms */
 .rooms {
   --column-gap: 0.5em;
-  --row-gap: 0.5em;
+  --row-gap: 0.25em;
 
-  padding-inline: var(--sidebar-inline-space);
+  display: flex;
+  flex-direction: column;
+  padding-inline: 0;
 }
 
 .rooms__new-btn {
@@ -207,27 +278,41 @@
 }
 
 .room {
-  background-color: var(--color-text-reversed);
-  color: var(--color-text);
-  font-weight: normal;
+  background-color: transparent;
+  border-radius: 6px;
+  box-shadow: none;
+  color: var(--color-sidebar-text-muted);
+  font-weight: 400;
   justify-content: start;
-  margin-inline-end: auto;
-  max-inline-size: 100%;
+  margin-inline: 8px;
+  max-inline-size: calc(100% - 16px);
+  padding: 4px 8px;
 
   .searches-list & {
     border-radius: 0.5em;
+    color: var(--color-text);
+  }
+
+  @media (any-hover: hover) {
+    &:where(:not(:active):hover) {
+      background-color: var(--color-sidebar-bg-hover);
+      box-shadow: none;
+    }
   }
 
   &.unread {
-    --btn-border-color: var(--color-text);
-    --hover-color: var(--color-text);
-
-    font-weight: 600;
+    color: var(--color-sidebar-unread);
+    font-weight: 700;
 
     &:not(:hover) {
-      box-shadow: 0 0 0 1px var(--color-text);
+      box-shadow: none;
     }
   }
+}
+
+.room__hash {
+  color: var(--color-sidebar-text-muted);
+  margin-inline-end: 2px;
 }
 
 .room--current {
@@ -264,6 +349,13 @@
 
   .rooms {
     padding-block-start: var(--block-space);
+    padding-inline: var(--sidebar-inline-space);
+  }
+
+  .room {
+    color: var(--color-text);
+    margin-inline: 0;
+    max-inline-size: 100%;
   }
 
   .message--formatted .message__room {
@@ -276,17 +368,7 @@
     white-space: nowrap;
 
     &::before {
-      content: "→";
-    }
-
-    .message--me & {
-      &::after {
-        content: "←";
-      }
-
-      &::before {
-        content: "";
-      }
+      content: "\2192";
     }
   }
 

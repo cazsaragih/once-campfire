@@ -13,3 +13,12 @@
     filter: invert(100%);
   }
 }
+
+/* Sidebar icons always white on dark background */
+#sidebar .colorize--black {
+  filter: invert(100%);
+
+  @media (prefers-color-scheme: dark) {
+    filter: invert(0%);
+  }
+}

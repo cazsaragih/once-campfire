@@ -5,11 +5,12 @@
 
 /* Item */
 .boost {
+  background-color: var(--color-message-bg);
   border: 1px solid var(--boost-border-color);
-  border-radius: 4rem;
+  border-radius: 16px;
   margin-block-start: calc(var(--block-space-half) / 2);
   opacity: 1;
-  padding: 0.1em 0.2em 0.1em 0.1em;
+  padding: 2px 8px 2px 4px;
   transition: opacity 100ms ease-in-out, box-shadow 150ms ease-in-out, transform 150ms ease-in-out;
 
   .boost__action {
