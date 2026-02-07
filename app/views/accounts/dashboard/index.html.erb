@@ -1,0 +1,25 @@
+<% @page_title = "Database Dashboard" %>
+
+<% content_for :nav do %>
+  <div class="flex-item-justify-start">
+    <%= link_back_to edit_account_path %>
+  </div>
+<% end %>
+
+<section class="panel panel--wide txt-align-center flex flex-column gap" style="view-transition-name: dashboard">
+  <div class="pad-inline-double center">
+    <h1 class="margin-none">Database Dashboard</h1>
+    <p class="margin-none-block-start txt-subtle">View database tables and their contents</p>
+  </div>
+
+  <div class="flex flex-column gap pad-inline pad-block-start">
+    <% @table_stats.each do |stat| %>
+      <%= link_to account_dashboard_table_path(table: stat[:name]),
+            class: "flex align-center gap pad fill-shade border-radius txt-undecorated txt-primary" do %>
+        <span class="flex-item-grow txt-align-start"><strong><%= stat[:name] %></strong></span>
+        <span class="txt-subtle txt-small"><%= stat[:count] %> rows</span>
+        <%= image_tag "arrow-right.svg", aria: { hidden: "true" }, size: 16 %>
+      <% end %>
+    <% end %>
+  </div>
+</section>

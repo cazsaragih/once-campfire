@@ -22,6 +22,9 @@ Rails.application.routes.draw do
       resource :join_code, only: :create
       resource :logo, only: %i[ show destroy ]
       resource :custom_styles, only: %i[ edit update ]
+
+      get "dashboard",        to: "dashboard#index", as: :dashboard
+      get "dashboard/:table", to: "dashboard#show",  as: :dashboard_table
     end
   end
 

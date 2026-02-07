@@ -1,0 +1,60 @@
+<% @page_title = "Dashboard: #{@table_name}" %>
+
+<% content_for :nav do %>
+  <div class="flex-item-justify-start">
+    <%= link_back_to account_dashboard_path %>
+  </div>
+<% end %>
+
+<section class="panel panel--wide flex flex-column gap" style="view-transition-name: dashboard">
+  <div class="pad-inline-double center txt-align-center">
+    <h1 class="margin-none"><%= @table_name %></h1>
+    <p class="margin-none-block-start txt-subtle">
+      <%= @total_count %> total rows
+      <% if @total_pages > 1 %>
+        &middot; Page <%= @page %> of <%= @total_pages %>
+      <% end %>
+    </p>
+  </div>
+
+  <div style="overflow-x: auto" class="pad-inline">
+    <table class="dashboard-table full-width">
+      <thead>
+        <tr>
+          <% @columns.each do |col| %>
+            <th class="txt-align-start txt-small txt-subtle"><%= col %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @records.each do |record| %>
+          <tr>
+            <% @columns.each do |col| %>
+              <td class="txt-small"><%= mask_value(col, record[col]) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @total_pages > 1 %>
+    <nav class="flex align-center justify-center gap pad-block">
+      <% if @page > 1 %>
+        <%= link_to account_dashboard_table_path(table: @table_name, page: @page - 1), class: "btn" do %>
+          <%= image_tag "arrow-left.svg", aria: { hidden: "true" }, size: 16 %>
+          <span>Previous</span>
+        <% end %>
+      <% end %>
+
+      <span class="txt-subtle txt-small">Page <%= @page %> of <%= @total_pages %></span>
+
+      <% if @page < @total_pages %>
+        <%= link_to account_dashboard_table_path(table: @table_name, page: @page + 1), class: "btn" do %>
+          <span>Next</span>
+          <%= image_tag "arrow-right.svg", aria: { hidden: "true" }, size: 16 %>
+        <% end %>
+      <% end %>
+    </nav>
+  <% end %>
+</section>

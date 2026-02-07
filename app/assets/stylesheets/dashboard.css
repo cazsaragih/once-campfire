@@ -1,0 +1,24 @@
+.dashboard-table {
+  border-collapse: collapse;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+}
+
+.dashboard-table th {
+  padding: 0.4rem 0.6rem;
+  border-block-end: 2px solid var(--color-border-darker);
+  white-space: nowrap;
+}
+
+.dashboard-table td {
+  padding: 0.4rem 0.6rem;
+  border-block-start: 1px solid var(--color-border);
+  max-inline-size: 30ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-table tr:hover td {
+  background-color: var(--color-border);
+}
