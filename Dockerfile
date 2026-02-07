@@ -55,8 +55,6 @@ LABEL org.opencontainers.image.licenses="MIT"
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
-USER 1000:1000
-
 # Configure environment defaults
 ENV HTTP_IDLE_TIMEOUT=60
 ENV HTTP_READ_TIMEOUT=300
@@ -75,5 +73,9 @@ ENV GIT_REVISION=$GIT_REVISION
 # Expose ports for HTTP and HTTPS
 EXPOSE 80 443
 
-# Start the server by default, this can be overwritten at runtime
+# Entrypoint fixes volume permissions then drops to rails user
+COPY docker-entrypoint.sh /rails/docker-entrypoint.sh
+RUN chmod +x /rails/docker-entrypoint.sh
+
+ENTRYPOINT ["/rails/docker-entrypoint.sh"]
 CMD ["bin/boot"]
