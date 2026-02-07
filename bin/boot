@@ -3,10 +3,6 @@
 require "json"
 require "yaml"
 
-# Cloud platforms (e.g. Railway) set PORT for the app to bind to.
-# Thruster reads HTTP_PORT, so forward it.
-ENV["HTTP_PORT"] = ENV["PORT"] if ENV["PORT"]
-
 class ProcessMonitor
   SIGNALS = %w[ INT TERM CLD ]
 
@@ -24,6 +20,13 @@ class ProcessMonitor
 
       # Skip Redis if using managed Redis service (REDIS_URL env var is set)
       config = config.reject { |name, _| name == "redis" } if ENV["REDIS_URL"]
+
+      # On cloud platforms (PORT is set), skip Thruster and let Puma bind directly
+      if ENV["PORT"]
+        config = config.map { |name, cmd|
+          name == "web" ? [name, "bin/start-app"] : [name, cmd]
+        }.to_h
+      end
 
       config.map { |name, cmd| MonitoredProcess.new(name, cmd) }
     end
