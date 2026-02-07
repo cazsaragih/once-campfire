@@ -70,8 +70,8 @@ ENV APP_VERSION=$APP_VERSION
 ARG GIT_REVISION
 ENV GIT_REVISION=$GIT_REVISION
 
-# Expose ports for HTTP and HTTPS
-EXPOSE 80 443
+# Expose port (Railway sets PORT dynamically; locally defaults to 3000)
+EXPOSE 3000
 
 # Entrypoint fixes volume permissions then drops to rails user
 COPY docker-entrypoint.sh /rails/docker-entrypoint.sh
