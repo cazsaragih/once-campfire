@@ -70,7 +70,7 @@
 }
 
 .messages {
-  --message-column-gap: 0.66ch;
+  --message-column-gap: 8px;
   --message-row-gap: 0.1em;
   --message-space: 1.33em;
 
@@ -93,7 +93,7 @@
 
   column-gap: var(--message-column-gap);
   display: grid;
-  grid-auto-columns: var(--inline-space-double) 1fr;
+  grid-auto-columns: 36px 1fr;
   grid-auto-rows: min-content;
   grid-template-areas:
     "sep sep"
@@ -199,12 +199,12 @@
 
 .message__avatar {
   --avatar-border-size: 1px;
-  --avatar-size: 3.5ch;
+  --avatar-size: 36px;
 
   grid-area: avatar;
   z-index: 2;
   display: flex;
-  box-shadow: 0 0 0 var(--hover-size) var(--color-bg);
+  box-shadow: none;
 }
 
 .message__meta {
@@ -451,14 +451,12 @@ img.message__attachment {
   .message__body-content {
     --message-background: oklch(var(--lch-red) / 0.1);
 
+    --message-background: oklch(var(--lch-red) / 0.2);
+
     animation: wiggle 0.4s both;
     background-color: var(--message-background);
     border-radius: 4px;
     padding: var(--content-padding-block) var(--content-padding-inline);
-
-    @media (prefers-color-scheme: dark) {
-      --message-background: oklch(var(--lch-red) / 0.2);
-    }
   }
 }
 

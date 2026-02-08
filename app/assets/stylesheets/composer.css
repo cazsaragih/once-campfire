@@ -73,10 +73,8 @@
     flex-shrink: 0;
   }
 
-  @media (prefers-color-scheme: dark) {
-    &::after {
-      filter: invert(100%);
-    }
+  &::after {
+    filter: invert(100%);
   }
 }
 

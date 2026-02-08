@@ -204,10 +204,7 @@ pre {
   img {
     display: inline;
     vertical-align: text-top;
-
-    @media (prefers-color-scheme: dark) {
-      filter: invert(100);
-    }
+    filter: invert(100);
   }
 
   li {

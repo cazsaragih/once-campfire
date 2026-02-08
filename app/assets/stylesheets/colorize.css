@@ -1,24 +1,8 @@
+/* Always dark theme — white icons invert to black (no-op), black icons invert to white */
 .colorize--white {
-  filter: invert(100%);
-
-  @media (prefers-color-scheme: dark) {
-    filter: invert(0%);
-  }
+  filter: invert(0%);
 }
 
 .colorize--black {
-  filter: invert(0%);
-
-  @media (prefers-color-scheme: dark) {
-    filter: invert(100%);
-  }
-}
-
-/* Sidebar icons always white on dark background */
-#sidebar .colorize--black {
   filter: invert(100%);
-
-  @media (prefers-color-scheme: dark) {
-    filter: invert(0%);
-  }
 }

@@ -1,28 +1,28 @@
 :root {
-  /* Named color values */
-  --lch-black: 0% 0 0;
-  --lch-white: 100% 0 0;
-  --lch-gray: 96% 0.005 96;
-  --lch-gray-dark: 92% 0.005 96;
-  --lch-gray-darker: 75% 0.005 96;
-  --lch-blue: 54% 0.23 255;
-  --lch-blue-light: 95% 0.03 255;
-  --lch-blue-dark: 80% 0.08 255;
+  /* Force dark theme always (Slack dark mode) */
+  --lch-black: 100% 0 0;
+  --lch-white: 19% 0 0;
+  --lch-gray: 25% 0 0;
+  --lch-gray-dark: 30% 0 0;
+  --lch-gray-darker: 45% 0 0;
+  --lch-blue: 72% 0.16 248;
+  --lch-blue-light: 28% 0.053 248;
+  --lch-blue-dark: 42% 0.07 248;
   --lch-orange: 70% 0.2 44;
-  --lch-red: 51% 0.2 31;
-  --lch-green: 65.59% 0.234 142.49;
+  --lch-red: 73.8% 0.184 29.18;
+  --lch-green: 75% 0.21 141.89;
   --lch-always-black: 0% 0 0;
 
-  /* Slack sidebar palette */
-  --color-sidebar-bg: oklch(20% 0.05 310);
-  --color-sidebar-bg-hover: oklch(25% 0.05 310);
-  --color-sidebar-text: oklch(95% 0 0);
-  --color-sidebar-text-muted: oklch(70% 0 0);
-  --color-sidebar-active: oklch(30% 0.06 310);
-  --color-sidebar-border: oklch(30% 0.04 310);
+  /* Slack dark sidebar — slightly darker than content */
+  --color-sidebar-bg: oklch(15% 0 0);
+  --color-sidebar-bg-hover: oklch(22% 0 0);
+  --color-sidebar-text: oklch(85% 0 0);
+  --color-sidebar-text-muted: oklch(62% 0 0);
+  --color-sidebar-active: oklch(22% 0.08 248);
+  --color-sidebar-border: oklch(25% 0 0);
   --color-sidebar-unread: oklch(95% 0 0);
-  --color-presence: oklch(65% 0.2 145);
-  --color-hover-message: oklch(96% 0 0);
+  --color-presence: oklch(72% 0.2 145);
+  --color-hover-message: oklch(23% 0 0);
 
   /* Abstractions */
   --color-negative: oklch(var(--lch-red));
@@ -39,18 +39,7 @@
   --color-selected-dark: oklch(var(--lch-blue-dark));
   --color-alert: oklch(var(--lch-orange));
 
-  /* Redefine named color values for dark mode */
-  @media (prefers-color-scheme: dark) {
-    --lch-black: 100% 0 0;
-    --lch-white: 0% 0 0;
-    --lch-gray: 25.2% 0 0;
-    --lch-gray-dark: 30.12% 0 0;
-    --lch-gray-darker: 44.95% 0 0;
-    --lch-blue: 72.25% 0.16 248;
-    --lch-blue-light: 28.11% 0.053 248;
-    --lch-blue-dark: 42.25% 0.07 248;
-    --lch-red: 73.8% 0.184 29.18;
-    --lch-green: 75% 0.21 141.89;
-    --color-hover-message: oklch(25% 0 0);
-  }
+  /* Badge colors */
+  --color-badge-bg: oklch(55% 0.2 25);
+  --color-badge-text: oklch(100% 0 0);
 }
