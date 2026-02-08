@@ -20,6 +20,31 @@ class Users::ProfilesControllerTest < ActionDispatch::IntegrationTest
     assert_equal "david@37signals.com", users(:david).email_address
   end
 
+  test "update availability to away" do
+    put user_profile_url, params: { user: { availability: "away" } }
+
+    assert_redirected_to user_profile_url
+    assert_equal "away", users(:david).reload.availability
+  end
+
+  test "update availability to online" do
+    users(:david).update!(availability: :away)
+
+    put user_profile_url, params: { user: { availability: "online" } }
+
+    assert_redirected_to user_profile_url
+    assert_equal "online", users(:david).reload.availability
+  end
+
+  test "update availability preserves other attributes" do
+    put user_profile_url, params: { user: { availability: "away" } }
+
+    david = users(:david).reload
+    assert_equal "away", david.availability
+    assert_equal "David", david.name
+    assert_equal "david@37signals.com", david.email_address
+  end
+
   test "updates are limited to the current user" do
     put user_profile_url(users(:jason)), params: { user: { name: "John Doe" } }
 

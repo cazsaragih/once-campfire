@@ -24,6 +24,44 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "availability defaults to online" do
+    user = create_new_user
+    assert_equal "online", user.availability
+    assert user.online?
+    assert_not user.away?
+  end
+
+  test "availability can be set to away" do
+    user = users(:david)
+    user.update!(availability: :away)
+    assert user.reload.away?
+    assert_not user.online?
+  end
+
+  test "changing availability broadcasts update" do
+    user = users(:david)
+
+    assert_difference -> { ActionCable.server.pubsub.broadcasts("availability_updates").size }, 1 do
+      user.update!(availability: :away)
+    end
+  end
+
+  test "changing availability broadcasts user id and new state" do
+    user = users(:david)
+    user.update!(availability: :away)
+
+    message = ActionCable.server.pubsub.broadcasts("availability_updates").last
+    parsed = JSON.parse(message)
+    assert_equal user.id, parsed["userId"]
+    assert_equal "away", parsed["availability"]
+  end
+
+  test "updating other attributes does not broadcast availability" do
+    assert_no_difference -> { ActionCable.server.pubsub.broadcasts("availability_updates").size } do
+      users(:david).update!(name: "Dave")
+    end
+  end
+
   test "deactivating a user deletes their sessions" do
     assert_changes -> { users(:david).sessions.count }, from: 1, to: 0 do
       users(:david).deactivate
