@@ -47,6 +47,22 @@
     <% end %>
   </div>
 
+  <%= profile_form_with @user, class: "availability-form" do |form| %>
+    <fieldset class="availability-toggle">
+      <legend class="for-screen-reader">Set your status</legend>
+      <label class="availability-option <%= 'availability-option--selected' if @user.online? %>">
+        <span class="availability-dot availability-dot--online"></span>
+        <%= form.radio_button :availability, "online", data: { action: "change->form#submit" }, checked: @user.online? %>
+        Active
+      </label>
+      <label class="availability-option <%= 'availability-option--selected' if @user.away? %>">
+        <span class="availability-dot availability-dot--away"></span>
+        <%= form.radio_button :availability, "away", data: { action: "change->form#submit" }, checked: @user.away? %>
+        Away
+      </label>
+    </fieldset>
+  <% end %>
+
   <%= profile_form_with @user do |form| %>
     <div class="flex flex-column gap">
       <div class="flex align-center gap">

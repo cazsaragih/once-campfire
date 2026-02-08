@@ -47,6 +47,25 @@
   position: absolute;
 }
 
+.avatar--away::after {
+  background-color: oklch(0% 0 0);
+  block-size: 10px;
+  border: 2px solid oklch(100% 0 0);
+  border-radius: 50%;
+  content: "";
+  inline-size: 10px;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  position: absolute;
+}
+
+.avatar--sm.avatar--online::after,
+.avatar--sm.avatar--away::after {
+  block-size: 7px;
+  border-width: 1.5px;
+  inline-size: 7px;
+}
+
 .avatar--icon {
   border: 1px solid var(--color-border-darker);
   background-color: var(--color-text-reversed);
@@ -104,6 +123,54 @@
 .avatar__form {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
+}
+
+/* Availability toggle on profile page */
+.availability-toggle {
+  border: none;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.availability-option {
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text);
+  cursor: pointer;
+  display: flex;
+  gap: 6px;
+  padding: 8px 16px;
+}
+
+.availability-option input[type="radio"] {
+  display: none;
+}
+
+.availability-option--selected {
+  background-color: var(--color-selected);
+  border-color: var(--color-selected-dark);
+}
+
+.availability-dot {
+  block-size: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  inline-size: 10px;
+}
+
+.availability-dot--online {
+  background-color: var(--color-presence);
+}
+
+.availability-dot--away {
+  background-color: oklch(0% 0 0);
+  border: 2px solid oklch(100% 0 0);
+  block-size: 6px;
+  inline-size: 6px;
 }
 
 /* Account logo */

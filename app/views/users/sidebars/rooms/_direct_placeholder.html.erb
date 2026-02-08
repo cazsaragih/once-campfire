@@ -1,5 +1,5 @@
 <%= button_to rooms_directs_path(user_ids: [ user.id ]), class: "direct borderless fill-transparent unpad" do %>
-  <span class="avatar">
+  <span class="avatar avatar--sm avatar--<%= user.availability %>">
     <%= image_tag fresh_user_avatar_path(user), size: 20, aria: { hidden: "true" } %>
   </span>
 

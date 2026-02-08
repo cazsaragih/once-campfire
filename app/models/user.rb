@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :bans, dependent: :destroy
 
   enum :status, %i[ active deactivated banned ], default: :active
+  enum :availability, %i[ online away ], default: :online
 
   has_secure_password validations: false
 

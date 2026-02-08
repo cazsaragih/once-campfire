@@ -12,7 +12,7 @@
         <% end %>
       </div>
     <% else %>
-      <span class="avatar">
+      <span class="avatar avatar--sm avatar--<%= members.first.availability %>">
         <%= image_tag fresh_user_avatar_path(members.first), size: 20, aria: { hidden: "true" } %>
       </span>
     <% end %>
