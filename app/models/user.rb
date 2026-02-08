@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_secure_password validations: false
 
   after_create_commit :grant_membership_to_open_rooms
+  after_update_commit :broadcast_availability_change, if: :saved_change_to_availability?
 
   scope :ordered, -> { order("LOWER(name)") }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
@@ -61,5 +62,9 @@ class User < ApplicationRecord
 
     def close_remote_connections(reconnect: false)
       ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: reconnect
+    end
+
+    def broadcast_availability_change
+      ActionCable.server.broadcast("availability_updates", { userId: id, availability: availability })
     end
 end
