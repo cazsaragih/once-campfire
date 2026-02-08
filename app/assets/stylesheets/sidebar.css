@@ -181,6 +181,7 @@
 
 .direct {
   align-items: center;
+  border: none;
   border-radius: 6px;
   box-shadow: none;
   color: var(--color-sidebar-text-muted);
@@ -271,6 +272,7 @@
 
 .room {
   background-color: transparent;
+  border: none;
   border-radius: 6px;
   box-shadow: none;
   color: var(--color-sidebar-text-muted);
