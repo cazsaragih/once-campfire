@@ -4,7 +4,7 @@ import { ignoringBriefDisconnects } from "helpers/dom_helpers"
 
 export default class extends Controller {
   static targets = [ "room" ]
-  static classes = [ "unread" ]
+  static classes = [ "unread", "active" ]
 
   #disconnected = true
 
@@ -25,6 +25,13 @@ export default class extends Controller {
 
   loaded() {
     this.read({ detail: { roomId: Current.room.id } })
+    this.activate({ detail: { roomId: Current.room.id } })
+  }
+
+  activate({ detail: { roomId } }) {
+    this.roomTargets.forEach(room => room.classList.remove(this.activeClass))
+    const room = this.#findRoomTarget(roomId)
+    if (room) room.classList.add(this.activeClass)
   }
 
   read({ detail: { roomId } }) {

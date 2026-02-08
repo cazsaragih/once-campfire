@@ -223,6 +223,12 @@
     color: var(--color-sidebar-unread);
     font-weight: 700;
   }
+
+  &.active {
+    background-color: var(--color-sidebar-active);
+    color: var(--color-sidebar-text);
+    font-weight: 600;
+  }
 }
 
 .direct__new {
@@ -293,6 +299,12 @@
     &:not(:hover) {
       box-shadow: none;
     }
+  }
+
+  &.active {
+    background-color: var(--color-sidebar-active);
+    color: var(--color-sidebar-text);
+    font-weight: 600;
   }
 }
 
