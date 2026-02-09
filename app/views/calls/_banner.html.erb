@@ -1,0 +1,37 @@
+<div id="call_banner_<%= room.id %>" class="call-banner">
+  <% if call&.active? %>
+    <div class="call-banner__content"
+         data-controller="call-banner"
+         data-call-banner-calls-url-value="<%= room_calls_path(room) %>">
+      <div class="call-banner__info">
+        <%= image_tag "headphones.svg", size: 18, aria: { hidden: "true" }, class: "call-banner__icon" %>
+        <span class="call-banner__label">
+          A huddle is happening
+          <span class="call-banner__live">LIVE</span>
+        </span>
+        <span class="call-banner__time"><%= local_datetime_tag call.started_at, style: :time %></span>
+      </div>
+
+      <div class="call-banner__participants">
+        <% call.users.each do |user| %>
+          <span class="avatar avatar--small call-banner__participant" title="<%= user.name %>">
+            <%= image_tag fresh_user_avatar_path(user), size: 24, aria: { hidden: "true" } %>
+          </span>
+        <% end %>
+        <span class="call-banner__count txt-small"><%= pluralize(call.active_participants.count, "person") %></span>
+      </div>
+
+      <% if call.includes_user?(Current.user) %>
+        <button class="btn btn--small call-banner__leave"
+                data-action="call-banner#leave">
+          Leave
+        </button>
+      <% else %>
+        <button class="btn btn--reversed btn--small call-banner__join"
+                data-action="call-banner#join">
+          Join
+        </button>
+      <% end %>
+    </div>
+  <% end %>
+</div>

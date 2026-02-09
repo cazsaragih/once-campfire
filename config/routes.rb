@@ -73,6 +73,8 @@ Rails.application.routes.draw do
       resource :involvement, only: %i[ show update ]
     end
 
+    resources :calls, only: %i[ create destroy ]
+
     get "@:message_id", to: "rooms#show", as: :at_message
   end
 
@@ -96,6 +98,8 @@ Rails.application.routes.draw do
 
   get "webmanifest"    => "pwa#manifest"
   get "service-worker" => "pwa#service_worker"
+
+  post "livekit/webhook", to: "livekit_webhooks#create"
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

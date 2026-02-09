@@ -1,0 +1,132 @@
+/* Call banner at top of message area */
+.call-banner {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.call-banner__content {
+  align-items: center;
+  background-color: oklch(25% 0.04 145);
+  border: 1px solid oklch(35% 0.06 145);
+  border-radius: 8px;
+  display: flex;
+  gap: var(--inline-space);
+  margin-inline: var(--inline-space);
+  margin-block: var(--block-space-half);
+  padding: var(--block-space-half) var(--inline-space);
+}
+
+.call-banner__info {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.call-banner__icon {
+  flex-shrink: 0;
+}
+
+.call-banner__label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.call-banner__live {
+  background-color: oklch(var(--lch-green));
+  border-radius: 3px;
+  color: oklch(var(--lch-always-black));
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 1px 5px;
+  margin-inline-start: 4px;
+  animation: pulsing-outline 2s infinite both;
+  outline: 0 solid oklch(var(--lch-green) / 0.4);
+}
+
+.call-banner__time {
+  color: oklch(60% 0 0);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.call-banner__participants {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  gap: 4px;
+}
+
+.call-banner__participant {
+  display: inline-flex;
+}
+
+.call-banner__participant img {
+  border-radius: 4px;
+}
+
+.call-banner__count {
+  color: oklch(60% 0 0);
+  white-space: nowrap;
+}
+
+.call-banner__join,
+.call-banner__leave {
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+/* Huddle controls in nav header */
+.huddle-controls {
+  align-items: center;
+  display: inline-flex;
+  gap: 2px;
+}
+
+.huddle-controls__muted {
+  opacity: 0.4;
+}
+
+.huddle-controls__leave {
+  color: oklch(var(--lch-red));
+}
+
+/* Active call indicator on headphones button */
+.btn--active-call {
+  background: oklch(var(--lch-green) / 0.15);
+  animation: pulsing-outline 2s infinite both;
+  outline: 0 solid oklch(var(--lch-green) / 0.3);
+  border-radius: 6px;
+}
+
+/* Global floating huddle indicator */
+.huddle-global-indicator {
+  background-color: oklch(25% 0.04 145);
+  border: 1px solid oklch(35% 0.06 145);
+  border-radius: 8px;
+  bottom: var(--block-space);
+  display: flex;
+  inset-inline: var(--inline-space);
+  padding: var(--block-space-half) var(--inline-space);
+  position: fixed;
+  z-index: 10;
+}
+
+.huddle-global-indicator[hidden] {
+  display: none;
+}
+
+.huddle-global-indicator__content {
+  align-items: center;
+  display: flex;
+  gap: var(--inline-space);
+  width: 100%;
+}
+
+.huddle-global-indicator__room {
+  flex: 1;
+  font-weight: 700;
+  font-size: 0.85rem;
+}

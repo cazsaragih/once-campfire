@@ -1,0 +1,22 @@
+<span data-controller="huddle"
+      data-huddle-room-id-value="<%= room.id %>"
+      data-huddle-calls-url-value="<%= room_calls_path(room) %>">
+  <button class="btn"
+          data-action="huddle#toggle"
+          data-huddle-target="toggleBtn"
+          title="<%= room.active_call ? 'Join huddle' : 'Start a huddle' %>">
+    <%= image_tag "headphones.svg", size: 20, aria: { hidden: "true" } %>
+    <span class="for-screen-reader">
+      <%= room.active_call ? "Join huddle" : "Start a huddle" %>
+    </span>
+  </button>
+
+  <span class="huddle-controls" data-huddle-target="controls" hidden>
+    <button class="btn huddle-controls__mute" data-action="huddle#toggleMute" data-huddle-target="muteBtn" title="Toggle mute">
+      <%= image_tag "headphones.svg", size: 16, aria: { hidden: "true" } %>
+    </button>
+    <button class="btn huddle-controls__leave" data-action="huddle#leave" title="Leave huddle">
+      <%= image_tag "remove.svg", size: 16, aria: { hidden: "true" } %>
+    </button>
+  </span>
+</span>
