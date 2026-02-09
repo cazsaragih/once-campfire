@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_02_08_120000) do
+ActiveRecord::Schema[8.2].define(version: 2026_02_09_100001) do
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "custom_styles"
@@ -67,6 +67,33 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_08_120000) do
     t.integer "user_id", null: false
     t.index ["ip_address"], name: "index_bans_on_ip_address"
     t.index ["user_id"], name: "index_bans_on_user_id"
+  end
+
+  create_table "call_participants", force: :cascade do |t|
+    t.integer "call_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "joined_at", null: false
+    t.datetime "left_at"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["call_id", "user_id", "left_at"], name: "idx_call_participants_active"
+    t.index ["call_id"], name: "index_call_participants_on_call_id"
+    t.index ["user_id"], name: "index_call_participants_on_user_id"
+  end
+
+  create_table "calls", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "ended_at"
+    t.integer "initiator_id", null: false
+    t.string "livekit_room_name", null: false
+    t.integer "room_id", null: false
+    t.datetime "started_at", null: false
+    t.string "status", default: "active", null: false
+    t.datetime "updated_at", null: false
+    t.index ["livekit_room_name"], name: "index_calls_on_livekit_room_name", unique: true
+    t.index ["room_id", "status"], name: "index_calls_on_room_id_and_status"
+    t.index ["room_id"], name: "index_calls_on_room_id"
+    t.index ["initiator_id"], name: "index_calls_on_initiator_id"
   end
 
   create_table "boosts", force: :cascade do |t|
@@ -170,6 +197,10 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_08_120000) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bans", "users"
+  add_foreign_key "call_participants", "calls"
+  add_foreign_key "call_participants", "users"
+  add_foreign_key "calls", "rooms"
+  add_foreign_key "calls", "users", column: "initiator_id"
   add_foreign_key "boosts", "messages"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users", column: "creator_id"

@@ -10,7 +10,7 @@ class CreateCalls < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :calls, [:room_id, :status]
+    add_index :calls, [ :room_id, :status ]
     add_index :calls, :livekit_room_name, unique: true
   end
 end

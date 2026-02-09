@@ -8,6 +8,6 @@ class CreateCallParticipants < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :call_participants, [:call_id, :user_id, :left_at], name: "idx_call_participants_active"
+    add_index :call_participants, [ :call_id, :user_id, :left_at ], name: "idx_call_participants_active"
   end
 end
