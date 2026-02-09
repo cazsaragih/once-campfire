@@ -23,7 +23,6 @@ Rails.application.routes.draw do
       resource :logo, only: %i[ show destroy ]
       resource :custom_styles, only: %i[ edit update ]
     end
-
   end
 
   get "account/dashboard",        to: "accounts/dashboard#index", as: :account_dashboard
