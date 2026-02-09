@@ -28,7 +28,7 @@ class LivekitService
   end
 
   def delete_room(room_name)
-    room_service = LiveKit::RoomServiceClient.new(@http_url, @api_key, @api_secret)
+    room_service = LiveKit::RoomServiceClient.new(@http_url, api_key: @api_key, api_secret: @api_secret)
     room_service.delete_room(room_name)
   rescue => e
     Rails.logger.warn "Failed to delete LiveKit room #{room_name}: #{e.message}"

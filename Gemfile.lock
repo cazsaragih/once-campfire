@@ -165,6 +165,12 @@ GEM
     erubi (1.13.1)
     faker (3.5.2)
       i18n (>= 1.8.11, < 2)
+    faraday (2.14.1)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-net_http (3.4.2)
+      net-http (~> 0.5)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-arm64-darwin)
     ffi (1.17.2-x86_64-darwin)
@@ -174,6 +180,18 @@ GEM
       addressable (>= 2.5.0)
     globalid (1.3.0)
       activesupport (>= 6.1)
+    google-protobuf (4.33.5-aarch64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.33.5-arm64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.33.5-x86_64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.33.5-x86_64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
     hashdiff (1.2.0)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
@@ -189,7 +207,7 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     json (2.13.2)
-    jwt (3.1.2)
+    jwt (2.10.2)
       base64
     kredis (1.8.0)
       activemodel (>= 6.0.0)
@@ -197,6 +215,10 @@ GEM
       redis (>= 4.2, < 6)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
+    livekit-server-sdk (0.9.0)
+      google-protobuf (~> 4.30, >= 4.30.2)
+      jwt (>= 2.2.3, < 3.0)
+      twirp (~> 1.13, >= 1.13.1)
     logger (1.7.0)
     loofah (2.24.1)
       crass (~> 1.0.2)
@@ -219,6 +241,8 @@ GEM
     multi_json (1.17.0)
     mustermann (3.0.4)
       ruby2_keywords (~> 0.0.1)
+    net-http (0.9.1)
+      uri (>= 0.11.1)
     net-http-persistent (4.0.6)
       connection_pool (~> 2.2, >= 2.2.4)
     net-imap (0.5.12)
@@ -379,6 +403,10 @@ GEM
     tilt (2.6.1)
     timeout (0.4.4)
     tsort (0.2.0)
+    twirp (1.13.1)
+      faraday (< 3)
+      google-protobuf (>= 3.25, < 5.a)
+      rack (>= 2.2.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.1.5)
@@ -386,8 +414,8 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.1.1)
     useragent (0.16.11)
-    web-push (3.0.2)
-      jwt (~> 3.0)
+    web-push (3.0.1)
+      jwt (~> 2.0)
       openssl (~> 3.0)
     webmock (3.25.1)
       addressable (>= 2.8.0)
@@ -420,6 +448,7 @@ DEPENDENCIES
   importmap-rails!
   jbuilder
   kredis
+  livekit-server-sdk (~> 0.8)
   mocha
   net-http-persistent
   ostruct
@@ -444,4 +473,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.5.9
+   2.6.9
