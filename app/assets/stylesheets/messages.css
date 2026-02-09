@@ -82,9 +82,7 @@
   position: relative;
   row-gap: var(--message-space);
 
-  @media (max-width: 100ch) {
-    padding-block-start: var(--navbar-height);
-  }
+  padding-block-start: var(--navbar-height);
 }
 
 .message {
