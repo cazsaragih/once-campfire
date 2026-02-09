@@ -12,7 +12,9 @@ class Accounts::DashboardController < ApplicationController
     "boosts"             => Boost,
     "webhooks"           => Webhook,
     "push_subscriptions" => Push::Subscription,
-    "searches"           => Search
+    "searches"           => Search,
+    "calls"              => Call,
+    "call_participants"  => CallParticipant
   }.freeze
 
   SENSITIVE_FIELDS = {
