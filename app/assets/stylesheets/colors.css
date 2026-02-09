@@ -14,7 +14,7 @@
   --lch-always-black: 0% 0 0;
 
   /* Slack dark sidebar — slightly darker than content */
-  --color-sidebar-bg: oklch(15% 0 0);
+  --color-sidebar-bg: #141518;
   --color-sidebar-bg-hover: oklch(22% 0 0);
   --color-sidebar-text: oklch(85% 0 0);
   --color-sidebar-text-muted: oklch(62% 0 0);
@@ -27,7 +27,7 @@
   /* Abstractions */
   --color-negative: oklch(var(--lch-red));
   --color-positive: oklch(var(--lch-green));
-  --color-bg: oklch(var(--lch-white));
+  --color-bg: #1a1d21;
   --color-message-bg: oklch(var(--lch-gray));
   --color-text: oklch(var(--lch-black));
   --color-text-reversed: oklch(var(--lch-white));

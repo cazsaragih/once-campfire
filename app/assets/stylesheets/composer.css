@@ -1,6 +1,5 @@
 /* Composer */
 .composer {
-  border-block-start: 1px solid var(--color-border);
   flex: none;
   padding: var(--block-space) calc(var(--inline-space) + 1vw);
 }
