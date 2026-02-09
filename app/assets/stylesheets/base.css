@@ -1,5 +1,5 @@
 :root {
-  --font-family: -apple-system, BlinkMacSystemFont, Aptos, Roboto, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --hover-color: var(--color-border-darker);
   --hover-size: 0.15em;
   --hover-filter: brightness(1);
