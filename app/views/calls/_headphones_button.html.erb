@@ -1,21 +1,21 @@
-<span data-controller="huddle"
-      data-huddle-room-id-value="<%= room.id %>"
-      data-huddle-calls-url-value="<%= room_calls_path(room) %>">
+<span data-controller="mingle"
+      data-mingle-room-id-value="<%= room.id %>"
+      data-mingle-calls-url-value="<%= room_calls_path(room) %>">
   <button class="btn"
-          data-action="huddle#toggle"
-          data-huddle-target="toggleBtn"
-          title="<%= room.active_call ? 'Join huddle' : 'Start a huddle' %>">
+          data-action="mingle#toggle"
+          data-mingle-target="toggleBtn"
+          title="<%= room.active_call ? 'Join mingle' : 'Start a mingle' %>">
     <%= image_tag "headphones.svg", size: 20, aria: { hidden: "true" } %>
     <span class="for-screen-reader">
-      <%= room.active_call ? "Join huddle" : "Start a huddle" %>
+      <%= room.active_call ? "Join mingle" : "Start a mingle" %>
     </span>
   </button>
 
-  <span class="huddle-controls" data-huddle-target="controls" hidden>
-    <button class="btn huddle-controls__mute" data-action="huddle#toggleMute" data-huddle-target="muteBtn" title="Toggle mute">
+  <span class="mingle-controls" data-mingle-target="controls" hidden>
+    <button class="btn mingle-controls__mute" data-action="mingle#toggleMute" data-mingle-target="muteBtn" title="Toggle mute">
       <%= image_tag "headphones.svg", size: 16, aria: { hidden: "true" } %>
     </button>
-    <button class="btn huddle-controls__leave" data-action="huddle#leave" title="Leave huddle">
+    <button class="btn mingle-controls__leave" data-action="mingle#leave" title="Leave mingle">
       <%= image_tag "remove.svg", size: 16, aria: { hidden: "true" } %>
     </button>
   </span>

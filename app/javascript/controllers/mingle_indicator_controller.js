@@ -1,12 +1,12 @@
 import { Controller } from "@hotwired/stimulus"
-import huddleManager from "models/huddle_manager"
+import mingleManager from "models/mingle_manager"
 
 // Global floating indicator shown when user is in a call but navigated to a different room.
 export default class extends Controller {
   static targets = ["roomName", "returnBtn"]
 
   connect() {
-    this.unsubscribe = huddleManager.subscribe(() => this.#updateVisibility())
+    this.unsubscribe = mingleManager.subscribe(() => this.#updateVisibility())
     this.#updateVisibility()
   }
 
@@ -15,29 +15,29 @@ export default class extends Controller {
   }
 
   returnToCall() {
-    if (huddleManager.roomId) {
-      window.Turbo.visit(`/rooms/${huddleManager.roomId}`)
+    if (mingleManager.roomId) {
+      window.Turbo.visit(`/rooms/${mingleManager.roomId}`)
     }
   }
 
   async leave() {
-    const roomId = huddleManager.roomId
+    const roomId = mingleManager.roomId
     if (!roomId) return
 
     try {
-      await huddleManager.leave({
+      await mingleManager.leave({
         callsUrl: `/rooms/${roomId}/calls`,
         csrfToken: document.querySelector("meta[name='csrf-token']")?.content
       })
     } catch (error) {
-      console.error("Failed to leave huddle:", error)
+      console.error("Failed to leave mingle:", error)
     }
   }
 
   #updateVisibility() {
-    const inCall = huddleManager.inCall
+    const inCall = mingleManager.inCall
     const currentRoomId = Current.room?.id
-    const callRoomId = huddleManager.roomId
+    const callRoomId = mingleManager.roomId
 
     // Show indicator only when in a call and viewing a different room
     const shouldShow = inCall && callRoomId && currentRoomId !== callRoomId
@@ -45,7 +45,7 @@ export default class extends Controller {
     this.element.hidden = !shouldShow
 
     if (shouldShow && this.hasRoomNameTarget) {
-      this.roomNameTarget.textContent = `In a huddle`
+      this.roomNameTarget.textContent = `In a mingle`
     }
   }
 }

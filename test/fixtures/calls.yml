@@ -1,0 +1,18 @@
+designers_active_call:
+  room: designers
+  initiator: david
+  livekit_room_name: "room-designers-abc12345"
+  status: active
+  started_at: <%= 10.minutes.ago %>
+  created_at: <%= 10.minutes.ago %>
+  updated_at: <%= 10.minutes.ago %>
+
+designers_ended_call:
+  room: designers
+  initiator: jason
+  livekit_room_name: "room-designers-old99999"
+  status: ended
+  started_at: <%= 2.hours.ago %>
+  ended_at: <%= 1.hour.ago %>
+  created_at: <%= 2.hours.ago %>
+  updated_at: <%= 1.hour.ago %>

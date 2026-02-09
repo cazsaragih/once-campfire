@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import huddleManager from "models/huddle_manager"
+import mingleManager from "models/mingle_manager"
 
 export default class extends Controller {
   static targets = ["toggleBtn", "controls", "muteBtn"]
@@ -9,7 +9,7 @@ export default class extends Controller {
   }
 
   connect() {
-    this.unsubscribe = huddleManager.subscribe(() => this.#updateUI())
+    this.unsubscribe = mingleManager.subscribe(() => this.#updateUI())
     this.#updateUI()
   }
 
@@ -18,7 +18,7 @@ export default class extends Controller {
   }
 
   async toggle() {
-    if (huddleManager.inCall) {
+    if (mingleManager.inCall) {
       await this.leave()
     } else {
       await this.join()
@@ -27,37 +27,37 @@ export default class extends Controller {
 
   async join() {
     try {
-      await huddleManager.join({
+      await mingleManager.join({
         callsUrl: this.callsUrlValue,
         csrfToken: this.#csrfToken
       })
     } catch (error) {
-      console.error("Failed to join huddle:", error)
+      console.error("Failed to join mingle:", error)
     }
   }
 
   async leave() {
     try {
-      await huddleManager.leave({
+      await mingleManager.leave({
         callsUrl: this.callsUrlValue,
         csrfToken: this.#csrfToken
       })
     } catch (error) {
-      console.error("Failed to leave huddle:", error)
+      console.error("Failed to leave mingle:", error)
     }
   }
 
   toggleMute() {
-    huddleManager.toggleMute()
+    mingleManager.toggleMute()
   }
 
   #updateUI() {
-    const inCall = huddleManager.inCall
-    const isCurrentRoom = huddleManager.roomId === this.roomIdValue
+    const inCall = mingleManager.inCall
+    const isCurrentRoom = mingleManager.roomId === this.roomIdValue
 
     if (this.hasToggleBtnTarget) {
       this.toggleBtnTarget.classList.toggle("btn--active-call", inCall && isCurrentRoom)
-      this.toggleBtnTarget.title = inCall && isCurrentRoom ? "Leave huddle" : "Start a huddle"
+      this.toggleBtnTarget.title = inCall && isCurrentRoom ? "Leave mingle" : "Start a mingle"
     }
 
     if (this.hasControlsTarget) {
@@ -65,8 +65,8 @@ export default class extends Controller {
     }
 
     if (this.hasMuteBtnTarget) {
-      this.muteBtnTarget.classList.toggle("huddle-controls__muted", huddleManager.muted)
-      this.muteBtnTarget.title = huddleManager.muted ? "Unmute" : "Mute"
+      this.muteBtnTarget.classList.toggle("mingle-controls__muted", mingleManager.muted)
+      this.muteBtnTarget.title = mingleManager.muted ? "Unmute" : "Mute"
     }
   }
 

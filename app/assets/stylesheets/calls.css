@@ -1,8 +1,6 @@
-/* Call banner at top of message area */
+/* Call banner inline with messages */
 .call-banner {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  padding-inline: calc(var(--inline-space) + 1vw);
 }
 
 .call-banner__content {
@@ -12,7 +10,6 @@
   border-radius: 8px;
   display: flex;
   gap: var(--inline-space);
-  margin-inline: var(--inline-space);
   margin-block: var(--block-space-half);
   padding: var(--block-space-half) var(--inline-space);
 }
@@ -78,18 +75,18 @@
   white-space: nowrap;
 }
 
-/* Huddle controls in nav header */
-.huddle-controls {
+/* Mingle controls in nav header */
+.mingle-controls {
   align-items: center;
   display: inline-flex;
   gap: 2px;
 }
 
-.huddle-controls__muted {
+.mingle-controls__muted {
   opacity: 0.4;
 }
 
-.huddle-controls__leave {
+.mingle-controls__leave {
   color: oklch(var(--lch-red));
 }
 
@@ -101,8 +98,8 @@
   border-radius: 6px;
 }
 
-/* Global floating huddle indicator */
-.huddle-global-indicator {
+/* Global floating mingle indicator */
+.mingle-global-indicator {
   background-color: oklch(25% 0.04 145);
   border: 1px solid oklch(35% 0.06 145);
   border-radius: 8px;
@@ -114,18 +111,18 @@
   z-index: 10;
 }
 
-.huddle-global-indicator[hidden] {
+.mingle-global-indicator[hidden] {
   display: none;
 }
 
-.huddle-global-indicator__content {
+.mingle-global-indicator__content {
   align-items: center;
   display: flex;
   gap: var(--inline-space);
   width: 100%;
 }
 
-.huddle-global-indicator__room {
+.mingle-global-indicator__room {
   flex: 1;
   font-weight: 700;
   font-size: 0.85rem;

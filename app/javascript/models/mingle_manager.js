@@ -1,6 +1,6 @@
 // Singleton that persists across Turbo Drive navigations.
 // Holds the LiveKit Room instance so audio continues when navigating between rooms.
-class HuddleManager {
+class MingleManager {
   constructor() {
     this.livekitRoom = null
     this.callId = null
@@ -37,7 +37,10 @@ class HuddleManager {
     const { token, ws_url, room_name, call_id } = await response.json()
     this.callId = call_id
 
+    console.log("[Mingle] Connecting to LiveKit:", ws_url, "room:", room_name)
+
     const lk = await this._loadLiveKit()
+    console.log("[Mingle] LiveKit client loaded")
 
     this.livekitRoom = new lk.Room({
       audioCaptureDefaults: {
@@ -54,9 +57,11 @@ class HuddleManager {
     this.livekitRoom.on(lk.RoomEvent.ParticipantDisconnected, () => this.notify())
 
     await this.livekitRoom.connect(ws_url, token)
+    console.log("[Mingle] Connected to LiveKit successfully")
 
     const audioTrack = await lk.createLocalAudioTrack()
     await this.livekitRoom.localParticipant.publishTrack(audioTrack)
+    console.log("[Mingle] Audio track published")
 
     this.roomId = Current.room?.id
     this.muted = false
@@ -112,7 +117,6 @@ class HuddleManager {
   }
 
   _cleanup() {
-    // Remove any audio elements we created
     document.querySelectorAll("[id^='lk-audio-']").forEach(el => el.remove())
     this.livekitRoom = null
     this.callId = null
@@ -122,11 +126,16 @@ class HuddleManager {
 
   async _loadLiveKit() {
     if (!this._livekit) {
-      this._livekit = await import("livekit-client")
+      try {
+        this._livekit = await import("livekit-client")
+      } catch (e) {
+        console.error("[Mingle] Failed to load livekit-client:", e)
+        throw e
+      }
     }
     return this._livekit
   }
 }
 
-const huddleManager = new HuddleManager()
-export default huddleManager
+const mingleManager = new MingleManager()
+export default mingleManager

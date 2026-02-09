@@ -1,0 +1,6 @@
+david_in_designers_call:
+  call: designers_active_call
+  user: david
+  joined_at: <%= 10.minutes.ago %>
+  created_at: <%= 10.minutes.ago %>
+  updated_at: <%= 10.minutes.ago %>
