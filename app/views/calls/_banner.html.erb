@@ -1,4 +1,4 @@
-<div id="call_banner_<%= room.id %>" class="call-banner">
+<div id="call_banner_<%= room.id %>" class="call-banner"<% if call %> data-sort-value="<%= call.started_at.to_fs(:epoch) %>"<% end %>>
   <% if call&.active? %>
     <div class="call-banner__content"
          data-controller="call-banner"
