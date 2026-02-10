@@ -14,6 +14,11 @@
   padding: var(--block-space-half) var(--inline-space);
 }
 
+.call-banner__content--ended {
+  background-color: oklch(25% 0 0);
+  border-color: oklch(35% 0 0);
+}
+
 .call-banner__info {
   align-items: center;
   display: flex;

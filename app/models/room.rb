@@ -65,6 +65,10 @@ class Room < ApplicationRecord
     calls.active.last
   end
 
+  def latest_call
+    calls.order(created_at: :desc).first
+  end
+
   def default_involvement
     "mentions"
   end

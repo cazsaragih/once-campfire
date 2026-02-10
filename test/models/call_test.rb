@@ -21,6 +21,21 @@ class CallTest < ActiveSupport::TestCase
     assert_nil rooms(:watercooler).active_call
   end
 
+  test "room latest_call returns most recent call regardless of status" do
+    room = rooms(:designers)
+    assert_equal calls(:designers_active_call), room.latest_call
+  end
+
+  test "room latest_call returns ended call when no active call" do
+    room = rooms(:designers)
+    calls(:designers_active_call).end!
+    assert room.latest_call.ended?
+  end
+
+  test "room latest_call returns nil when no calls exist" do
+    assert_nil rooms(:watercooler).latest_call
+  end
+
   test "join adds participant" do
     call = calls(:designers_active_call)
     call.join(users(:jason))

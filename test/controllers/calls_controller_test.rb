@@ -74,6 +74,28 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     assert_no_match(/huddle/i, response.body)
   end
 
+  test "ended mingle banner shows ended text without live indicator" do
+    call = calls(:designers_active_call)
+    call.end!
+
+    get room_url(@room)
+    assert_response :success
+    assert_select ".call-banner__content--ended"
+    assert_select ".call-banner__label", text: /mingle has ended/i
+    assert_select ".call-banner__live", count: 0
+    assert_select "[data-call-banner-target='joinBtn']", count: 0
+    assert_select "[data-call-banner-target='leaveBtn']", count: 0
+  end
+
+  test "ended mingle banner persists on page load" do
+    call = calls(:designers_active_call)
+    call.end!
+
+    get room_url(@room)
+    assert_response :success
+    assert_select ".call-banner__content--ended", count: 1
+  end
+
   test "room show page has mingle controller not huddle" do
     get room_url(@room)
     assert_response :success

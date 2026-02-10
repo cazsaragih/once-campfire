@@ -34,5 +34,13 @@
         Join
       </button>
     </div>
+  <% elsif call&.ended? %>
+    <div class="call-banner__content call-banner__content--ended">
+      <div class="call-banner__info">
+        <%= image_tag "headphones.svg", size: 18, aria: { hidden: "true" }, class: "call-banner__icon" %>
+        <span class="call-banner__label">A mingle has ended</span>
+        <span class="call-banner__time"><%= local_datetime_tag call.ended_at, style: :time %></span>
+      </div>
+    </div>
   <% end %>
 </div>
