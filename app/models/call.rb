@@ -16,6 +16,7 @@ class Call < ApplicationRecord
     update!(status: "ended", ended_at: Time.current)
     active_participants.update_all(left_at: Time.current)
     broadcast_call_ended
+    LivekitService.new.delete_room(livekit_room_name)
   end
 
   def active?
