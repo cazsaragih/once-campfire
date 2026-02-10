@@ -4,6 +4,8 @@
 - Before committing, always run `bin/rubocop -a` to auto-fix lint offenses, then fix any remaining offenses manually
 - After pushing, check CI status with `gh run watch` and if it fails, investigate and fix the failures
 - Run `bin/rails test` before committing to catch regressions early
+- When changing a feature or requirement, update existing tests to match
+- When adding a new feature that isn't covered by tests, write tests for it
 
 # Deployment Memory
 

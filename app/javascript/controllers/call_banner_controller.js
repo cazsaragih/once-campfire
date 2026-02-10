@@ -1,10 +1,21 @@
 import { Controller } from "@hotwired/stimulus"
 import mingleManager from "models/mingle_manager"
 
-// Thin controller for the call banner's Join/Leave buttons.
-// Delegates to the shared MingleManager singleton.
+// Controller for the call banner's Join/Leave buttons.
+// Manages button visibility client-side based on MingleManager state,
+// since Turbo Stream broadcasts don't have access to Current.user.
 export default class extends Controller {
-  static values = { callsUrl: String }
+  static targets = ["joinBtn", "leaveBtn"]
+  static values = { callsUrl: String, roomId: Number }
+
+  connect() {
+    this.unsubscribe = mingleManager.subscribe(() => this.#updateButton())
+    this.#updateButton()
+  }
+
+  disconnect() {
+    this.unsubscribe?.()
+  }
 
   async join() {
     try {
@@ -26,6 +37,13 @@ export default class extends Controller {
     } catch (error) {
       console.error("Failed to leave mingle from banner:", error)
     }
+  }
+
+  #updateButton() {
+    const inThisCall = mingleManager.inCall && mingleManager.roomId === this.roomIdValue
+
+    if (this.hasLeaveBtnTarget) this.leaveBtnTarget.hidden = !inThisCall
+    if (this.hasJoinBtnTarget) this.joinBtnTarget.hidden = inThisCall
   }
 
   get #csrfToken() {

@@ -35,6 +35,7 @@ class Call < ApplicationRecord
   end
 
   def join(user)
+    leave_other_active_calls(user)
     call_participants.create!(user: user, joined_at: Time.current) unless includes_user?(user)
     broadcast_call_updated
   end
@@ -47,4 +48,11 @@ class Call < ApplicationRecord
       broadcast_call_updated
     end
   end
+
+  private
+    def leave_other_active_calls(user)
+      CallParticipant.where(user: user, left_at: nil).where.not(call: self).find_each do |cp|
+        cp.call.leave(user)
+      end
+    end
 end

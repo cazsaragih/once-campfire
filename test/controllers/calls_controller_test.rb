@@ -49,6 +49,24 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     assert call.reload.ended?
   end
 
+  test "create leaves other active calls when joining a new one" do
+    # David is already in designers_active_call via fixtures.
+    # Create a new call in watercooler and join it.
+    room = rooms(:watercooler)
+    post room_calls_url(room)
+    assert_response :success
+
+    # David should have left the designers call
+    assert_not_nil call_participants(:david_in_designers_call).reload.left_at
+  end
+
+  test "banner renders both join and leave buttons with stimulus targets" do
+    get room_url(@room)
+    assert_response :success
+    assert_select "[data-call-banner-target='joinBtn']"
+    assert_select "[data-call-banner-target='leaveBtn']"
+  end
+
   test "room show page banner says mingle not huddle" do
     get room_url(@room)
     assert_response :success

@@ -2,7 +2,8 @@
   <% if call&.active? %>
     <div class="call-banner__content"
          data-controller="call-banner"
-         data-call-banner-calls-url-value="<%= room_calls_path(room) %>">
+         data-call-banner-calls-url-value="<%= room_calls_path(room) %>"
+         data-call-banner-room-id-value="<%= room.id %>">
       <div class="call-banner__info">
         <%= image_tag "headphones.svg", size: 18, aria: { hidden: "true" }, class: "call-banner__icon" %>
         <span class="call-banner__label">
@@ -21,17 +22,17 @@
         <span class="call-banner__count txt-small"><%= pluralize(call.active_participants.count, "person") %></span>
       </div>
 
-      <% if call.includes_user?(Current.user) %>
-        <button class="btn btn--small call-banner__leave"
-                data-action="call-banner#leave">
-          Leave
-        </button>
-      <% else %>
-        <button class="btn btn--reversed btn--small call-banner__join"
-                data-action="call-banner#join">
-          Join
-        </button>
-      <% end %>
+      <button class="btn btn--small call-banner__leave"
+              data-call-banner-target="leaveBtn"
+              data-action="call-banner#leave"
+              hidden>
+        Leave
+      </button>
+      <button class="btn btn--reversed btn--small call-banner__join"
+              data-call-banner-target="joinBtn"
+              data-action="call-banner#join">
+        Join
+      </button>
     </div>
   <% end %>
 </div>
