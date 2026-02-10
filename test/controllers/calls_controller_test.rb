@@ -80,11 +80,12 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
 
     get room_url(@room)
     assert_response :success
-    assert_select ".call-banner__content--ended"
-    assert_select ".call-banner__label", text: /mingle has ended/i
-    assert_select ".call-banner__live", count: 0
-    assert_select "[data-call-banner-target='joinBtn']", count: 0
-    assert_select "[data-call-banner-target='leaveBtn']", count: 0
+    assert_select ".call-banner__content--ended" do
+      assert_select ".call-banner__label", text: /mingle has ended/i
+      assert_select ".call-banner__live", count: 0
+      assert_select "[data-call-banner-target='joinBtn']", count: 0
+      assert_select "[data-call-banner-target='leaveBtn']", count: 0
+    end
   end
 
   test "ended mingle banner persists on page load" do
