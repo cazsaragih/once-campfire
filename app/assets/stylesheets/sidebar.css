@@ -180,6 +180,7 @@
 }
 
 .direct {
+  --avatar-size: 3ch;
   align-items: center;
   border: none;
   border-radius: 6px;
