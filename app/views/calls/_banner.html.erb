@@ -1,5 +1,6 @@
 <% return unless call %>
-<div id="call_banner_<%= call.id %>" class="call-banner" data-sort-value="<%= call.started_at.to_fs(:epoch) %>">
+<div id="call_banner_<%= call.id %>" class="call-banner" data-sort-value="<%= call.started_at.to_fs(:epoch) %>" data-message-timestamp="<%= call.started_at.to_fs(:epoch) %>" data-messages-target="message">
+  <h2 class="message__day-separator"><%= local_datetime_tag call.started_at, style: :date %></h2>
   <% if call&.active? %>
     <div class="call-banner__content"
          data-controller="call-banner"
