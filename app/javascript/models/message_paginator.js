@@ -124,7 +124,7 @@ export default class MessagePaginator {
   // Internal
 
   #messageBecameVisible(element) {
-    const messageId = element.dataset.messageId
+    const messageId = element.dataset.messageId || this.#nearestMessageId(element)
     const firstMesage = element === this.#container.firstElementChild
     const lastMessage = element === this.#container.lastElementChild
 
@@ -139,6 +139,16 @@ export default class MessagePaginator {
         this.#allContentViewedCallback?.()
       }
     }
+  }
+
+  #nearestMessageId(element) {
+    for (let el = element.previousElementSibling; el; el = el.previousElementSibling) {
+      if (el.dataset.messageId) return el.dataset.messageId
+    }
+    for (let el = element.nextElementSibling; el; el = el.nextElementSibling) {
+      if (el.dataset.messageId) return el.dataset.messageId
+    }
+    return null
   }
 
   async #showLastPage() {
@@ -187,7 +197,7 @@ export default class MessagePaginator {
     const text = await response.html
     const fragment = parseHTMLFragment(text)
 
-    for (const message of fragment.querySelectorAll(".message")) {
+    for (const message of fragment.querySelectorAll(".message, .call-banner")) {
       this.#messageFormatter.format(message, ThreadStyle.thread)
     }
 

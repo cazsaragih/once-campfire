@@ -9,6 +9,7 @@ class MessagesController < ApplicationController
 
   def index
     @messages = find_paged_messages
+    @calls = find_calls_for_page
 
     if @messages.any?
       fresh_when @messages
@@ -66,6 +67,14 @@ class MessagesController < ApplicationController
       end
     end
 
+
+    def find_calls_for_page
+      if @messages.any?
+        @room.calls.where(started_at: @messages.first.created_at..@messages.last.created_at).order(:started_at).to_a
+      else
+        []
+      end
+    end
 
     def message_params
       params.require(:message).permit(:body, :attachment, :client_message_id)

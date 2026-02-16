@@ -1,1 +1,7 @@
-<%= render partial: "messages/message", collection: @messages, cached: true %>
+<% (@messages.to_a + @calls).sort_by { |item| item.is_a?(Call) ? item.started_at : item.created_at }.each do |item| %>
+  <% if item.is_a?(Call) %>
+    <%= render "calls/banner", call: item, room: @room %>
+  <% else %>
+    <%= render partial: "messages/message", object: item, as: :message, cached: true %>
+  <% end %>
+<% end %>

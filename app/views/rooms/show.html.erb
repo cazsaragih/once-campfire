@@ -14,8 +14,13 @@
 
   <%= messages_tag(@room) do %>
     <%= render "rooms/show/invitation", room: @room %>
-    <%= render partial: "messages/message", collection: @messages, cached: true %>
-    <%= render "calls/banner", call: @room.latest_call, room: @room %>
+    <% (@messages.to_a + @calls).sort_by { |item| item.is_a?(Call) ? item.started_at : item.created_at }.each do |item| %>
+      <% if item.is_a?(Call) %>
+        <%= render "calls/banner", call: item, room: @room %>
+      <% else %>
+        <%= render partial: "messages/message", object: item, as: :message, cached: true %>
+      <% end %>
+    <% end %>
   <% end %>
 
   <%= turbo_stream_from @room, :messages %>
