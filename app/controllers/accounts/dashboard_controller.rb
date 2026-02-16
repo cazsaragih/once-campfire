@@ -10,6 +10,7 @@ class Accounts::DashboardController < ApplicationController
     "messages"           => Message,
     "bans"               => Ban,
     "boosts"             => Boost,
+    "pins"               => Pin,
     "webhooks"           => Webhook,
     "push_subscriptions" => Push::Subscription,
     "searches"           => Search,
