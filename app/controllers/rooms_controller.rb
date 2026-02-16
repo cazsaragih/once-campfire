@@ -9,6 +9,7 @@ class RoomsController < ApplicationController
 
   def show
     @messages = find_messages
+    @calls = find_calls
   end
 
   def destroy
@@ -44,6 +45,14 @@ class RoomsController < ApplicationController
         @messages = messages.page_around(show_first_message)
       else
         @messages = messages.last_page
+      end
+    end
+
+    def find_calls
+      if @messages.any?
+        @room.calls.where("started_at >= ?", @messages.first.created_at).order(:started_at).to_a
+      else
+        []
       end
     end
 
