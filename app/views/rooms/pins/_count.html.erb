@@ -1,0 +1,5 @@
+<span id="<%= dom_id(room, :pin_count) %>">
+  <% if (count = room.pins.count) > 0 %>
+    <span class="pin-count"><%= count %></span>
+  <% end %>
+</span>

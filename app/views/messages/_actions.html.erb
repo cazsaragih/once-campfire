@@ -48,6 +48,22 @@
           <%= image_tag "link.svg", class: "colorize--black", size: 20, aria: { hidden: "true" } %>
         <% end %>
 
+        <% if message.pin.present? %>
+          <%= button_to message_pin_path(message), method: :delete,
+                class: "btn message__action-btn center full-width",
+                data: { action: "popup#close" },
+                title: "Unpin", aria: { label: "Unpin message" } do %>
+            <%= image_tag "pin.svg", class: "colorize--black", size: 20, aria: { hidden: "true" } %>
+          <% end %>
+        <% else %>
+          <%= button_to message_pin_path(message), method: :post,
+                class: "btn message__action-btn center full-width",
+                data: { action: "popup#close" },
+                title: "Pin", aria: { label: "Pin message" } do %>
+            <%= image_tag "pin.svg", class: "colorize--black", size: 20, aria: { hidden: "true" } %>
+          <% end %>
+        <% end %>
+
         <%= link_to edit_room_message_path(message.room, message), class: "btn message__action-btn center full-width message__edit-btn",
               data: { turbo_frame: dom_id(message, :edit) }, title: "Edit", aria: { label: "Edit"} do %>
           <%= image_tag "pencil.svg", class: "colorize--black", size: 20, aria: { hidden: "true" } %>

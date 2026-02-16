@@ -1,0 +1,7 @@
+<span id="<%= dom_id(message, :pin_indicator) %>">
+  <% if message.pin.present? %>
+    <%= image_tag "pin.svg", size: 14, class: "colorize--black message__pin-indicator",
+          title: "Pinned by #{message.pin.creator.name}",
+          aria: { label: "Pinned message" } %>
+  <% end %>
+</span>

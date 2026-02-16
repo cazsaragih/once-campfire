@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :initiated_calls, class_name: "Call", foreign_key: :initiator_id, dependent: :destroy
   has_many :call_participants, dependent: :destroy
   has_many :boosts, dependent: :destroy, foreign_key: :booster_id
+  has_many :pins, dependent: :destroy, foreign_key: :creator_id
   has_many :searches, dependent: :delete_all
 
   has_many :sessions, dependent: :destroy

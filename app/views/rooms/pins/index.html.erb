@@ -1,0 +1,42 @@
+<% @page_title = "Pinned messages" %>
+<% @body_class = "sidebar" %>
+
+<% content_for :nav do %>
+  <div class="nav__channel-info">
+    <span class="nav__hash">
+      <%= image_tag "pin.svg", size: 16, class: "colorize--white", aria: { hidden: "true" } %>
+    </span>
+    <h1 class="nav__channel-name">Pinned in <%= room_display_name(@room) %></h1>
+  </div>
+
+  <div class="nav__spacer"></div>
+<% end %>
+
+<% content_for :sidebar, sidebar_turbo_frame_tag(src: user_sidebar_path) %>
+
+<div id="message-area" class="message-area">
+  <% if @pinned_messages.empty? %>
+    <div class="message-area--empty min-width center">
+      <figure class="center pad">
+        <%= image_tag "pin.svg", aria: { hidden: "true" }, class: "colorize--black translucent", size: 48 %>
+      </figure>
+      <p class="translucent">No pinned messages yet</p>
+    </div>
+  <% else %>
+    <div class="messages" style="padding-block-start: var(--navbar-height);">
+      <% @pinned_messages.each do |message| %>
+        <%= render partial: "messages/message", object: message, as: :message %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<% content_for :footer do %>
+  <div class="composer flex align-end gap">
+    <%= link_to room_path(@room),
+            class: "btn flex-item-no-shrink margin-block-end", style: "view-transition-name: input-switcher; --btn-border-radius: 0.5em" do %>
+      <%= image_tag "arrow-left.svg", aria: { hidden: "true" } %>
+      <span class="for-screen-reader">Back to room</span>
+    <% end %>
+  </div>
+<% end %>

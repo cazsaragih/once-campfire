@@ -19,6 +19,11 @@
       <span class="for-screen-reader">Settings for this <%= room.direct? ? "Ping" : "room" %></span>
     <% end %>
 
+    <%= link_to room_pins_path(room), class: "btn", title: "Pinned messages" do %>
+      <%= image_tag "pin.svg", size: 20, aria: { hidden: "true" } %>
+      <span class="for-screen-reader">Pinned messages</span>
+    <% end %>
+
     <%= render "calls/headphones_button", room: room %>
 
     <%= render "rooms/involvements/bell", room: room %>

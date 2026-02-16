@@ -529,3 +529,15 @@ img.message__attachment {
     inline-size: 1.4em;
   }
 }
+
+.message__pin-indicator {
+  opacity: 0.4;
+  vertical-align: middle;
+  margin-inline-start: 0.25em;
+}
+
+.pin-count {
+  font-size: 0.65rem;
+  font-weight: 700;
+  opacity: 0.7;
+}

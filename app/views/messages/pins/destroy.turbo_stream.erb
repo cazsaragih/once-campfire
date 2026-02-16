@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@message, :pin_indicator) do %>
+  <%= render "messages/pins/indicator", message: @message %>
+<% end %>

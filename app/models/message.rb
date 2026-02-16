@@ -5,6 +5,7 @@ class Message < ApplicationRecord
   belongs_to :creator, class_name: "User", default: -> { Current.user }
 
   has_many :boosts, dependent: :destroy
+  has_one :pin, dependent: :destroy
 
   has_rich_text :body
 
@@ -19,6 +20,8 @@ class Message < ApplicationRecord
       .includes(attachment_blob: :variant_records)
   }
   scope :with_boosts, -> { includes(boosts: :booster) }
+  scope :pinned, -> { joins(:pin) }
+  scope :with_pin, -> { includes(:pin) }
 
   def plain_text_body
     body.to_plain_text.presence || attachment&.filename&.to_s || ""

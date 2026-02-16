@@ -18,6 +18,7 @@
               </span>
               <%= link_to message_timestamp(message, class: "message__timestamp"), room_at_message_path(message.room, message), target: "_top",
                     class: "message__permalink" %>
+              <%= render "messages/pins/indicator", message: message %>
               <span class="message__room">
                 <%= link_to room_display_name(message.room, for_user: nil), room_at_message_path(message.room, message), target: "_top", data: { reply_target: "link" } %>
               </span>

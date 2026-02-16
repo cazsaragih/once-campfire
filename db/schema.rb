@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_02_09_100001) do
+ActiveRecord::Schema[8.2].define(version: 2026_02_16_100000) do
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "custom_styles"
@@ -104,6 +104,15 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_09_100001) do
     t.datetime "updated_at", null: false
     t.index ["booster_id"], name: "index_boosts_on_booster_id"
     t.index ["message_id"], name: "index_boosts_on_message_id"
+  end
+
+  create_table "pins", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "creator_id", null: false
+    t.integer "message_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_pins_on_creator_id"
+    t.index ["message_id"], name: "index_pins_on_message_id", unique: true
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -202,6 +211,8 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_09_100001) do
   add_foreign_key "calls", "rooms"
   add_foreign_key "calls", "users", column: "initiator_id"
   add_foreign_key "boosts", "messages"
+  add_foreign_key "pins", "messages"
+  add_foreign_key "pins", "users", column: "creator_id"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users", column: "creator_id"
   add_foreign_key "push_subscriptions", "users"

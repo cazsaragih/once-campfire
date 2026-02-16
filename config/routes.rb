@@ -71,6 +71,7 @@ Rails.application.routes.draw do
       resource :refresh, only: :show
       resource :settings, only: :show
       resource :involvement, only: %i[ show update ]
+      resources :pins, only: :index
     end
 
     resources :calls, only: %i[ create destroy ]
@@ -87,6 +88,7 @@ Rails.application.routes.draw do
   resources :messages do
     scope module: "messages" do
       resources :boosts
+      resource :pin, only: %i[ create destroy ]
     end
   end
 

@@ -20,6 +20,7 @@ class Room < ApplicationRecord
   has_many :users, through: :memberships
   has_many :messages, dependent: :destroy
   has_many :calls, dependent: :destroy
+  has_many :pins, through: :messages
 
   belongs_to :creator, class_name: "User", default: -> { Current.user }
 
