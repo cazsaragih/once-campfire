@@ -23,7 +23,7 @@
       <p class="translucent">No pinned messages yet</p>
     </div>
   <% else %>
-    <div class="messages" style="padding-block-start: var(--navbar-height);">
+    <div class="messages">
       <% @pinned_messages.each do |message| %>
         <%= render partial: "messages/message", object: message, as: :message %>
       <% end %>
