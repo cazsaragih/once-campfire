@@ -1,6 +1,10 @@
 /* Call banner inline with messages */
 .call-banner {
   padding-inline: calc(var(--inline-space) + 1vw);
+
+  .message__day-separator {
+    grid-area: unset;
+  }
 }
 
 .call-banner__content {
