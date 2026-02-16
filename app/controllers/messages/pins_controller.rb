@@ -29,7 +29,7 @@ class Messages::PinsController < ApplicationController
 
     def broadcast_pin_change
       @message.broadcast_replace_to @message.room, :messages,
-        target: dom_id(@message, :pin_indicator),
+        target: "pin_indicator_message_#{@message.client_message_id}",
         partial: "messages/pins/indicator",
         locals: { message: @message },
         attributes: { maintain_scroll: true }
