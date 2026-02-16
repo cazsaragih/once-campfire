@@ -52,7 +52,7 @@ class RoomsController < ApplicationController
       if @messages.any?
         @room.calls.where("started_at >= ?", @messages.first.created_at).order(:started_at).to_a
       else
-        []
+        @room.calls.order(:started_at).to_a
       end
     end
 

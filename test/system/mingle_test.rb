@@ -30,8 +30,10 @@ class MingleTest < ApplicationSystemTestCase
     call.end!
 
     join_room room
-    assert_selector ".call-banner__content--ended", text: "A mingle has ended"
-    assert_no_selector ".call-banner__live"
+    within ".call-banner__content--ended" do
+      assert_text "A mingle has ended"
+      assert_no_selector ".call-banner__live"
+    end
   end
 
   test "headphones button uses mingle controller" do
