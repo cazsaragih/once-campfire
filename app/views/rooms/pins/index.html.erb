@@ -1,6 +1,10 @@
 <% @page_title = "Pinned messages" %>
 <% @body_class = "sidebar" %>
 
+<% content_for :head do %>
+  <meta name="current-room-id" content="<%= @room.id %>">
+<% end %>
+
 <% content_for :nav do %>
   <div class="nav__channel-info">
     <span class="nav__hash">
