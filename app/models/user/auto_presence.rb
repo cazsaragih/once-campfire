@@ -8,6 +8,8 @@ module User::AutoPresence
       where("active_connections > 0 AND last_active_at < ?", PRESENCE_TTL.ago).find_each do |user|
         user.update!(active_connections: 0, availability: :away)
       end
+
+      where(active_connections: 0, availability: :online, manually_away: false).update_all(availability: :away)
     end
   end
 
