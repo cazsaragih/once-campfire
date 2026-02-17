@@ -13,12 +13,12 @@ module User::AutoPresence
     end
   end
 
-  def mark_visible
+  def mark_connected
     increment!(:active_connections, touch: :last_active_at)
     auto_set_online unless manually_away?
   end
 
-  def mark_hidden
+  def mark_disconnected
     decrement!(:active_connections)
     update_column(:active_connections, 0) if active_connections < 0
     auto_set_away if active_connections < 1
