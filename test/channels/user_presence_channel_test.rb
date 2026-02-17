@@ -8,67 +8,22 @@ class UserPresenceChannelTest < ActionCable::Channel::TestCase
   end
 
   test "subscribes and streams from availability_updates" do
-    subscribe visible: true
+    subscribe
 
     assert subscription.confirmed?
     assert_has_stream "availability_updates"
   end
 
-  test "subscribing with visible tab marks user active" do
-    subscribe visible: true
+  test "subscribing marks user as connected and online" do
+    subscribe
 
     @user.reload
     assert_equal 1, @user.active_connections
     assert @user.online?
   end
 
-  test "subscribing with hidden tab does not increment connections" do
-    subscribe visible: false
-
-    @user.reload
-    assert_equal 0, @user.active_connections
-  end
-
-  test "visible action increments connections and sets online" do
-    subscribe visible: false
-
-    perform :visible
-
-    @user.reload
-    assert_equal 1, @user.active_connections
-    assert @user.online?
-  end
-
-  test "hidden action decrements connections and sets away" do
-    subscribe visible: true
-
-    perform :hidden
-
-    @user.reload
-    assert_equal 0, @user.active_connections
-    assert @user.away?
-  end
-
-  test "double visible does not double count" do
-    subscribe visible: true
-
-    perform :visible
-
-    @user.reload
-    assert_equal 1, @user.active_connections
-  end
-
-  test "double hidden does not double decrement" do
-    subscribe visible: false
-
-    perform :hidden
-
-    @user.reload
-    assert_equal 0, @user.active_connections
-  end
-
-  test "unsubscribing decrements if visible" do
-    subscribe visible: true
+  test "unsubscribing marks user as disconnected and away" do
+    subscribe
 
     unsubscribe
 
@@ -77,19 +32,32 @@ class UserPresenceChannelTest < ActionCable::Channel::TestCase
     assert @user.away?
   end
 
-  test "unsubscribing does not decrement if hidden" do
-    subscribe visible: false
+  test "multiple subscriptions increment connections" do
+    subscribe
+
+    # Simulate a second tab by directly calling mark_connected
+    @user.mark_connected
+
+    @user.reload
+    assert_equal 2, @user.active_connections
+  end
+
+  test "unsubscribing with other connections keeps user online" do
+    # Simulate two tabs
+    @user.mark_connected
+    subscribe
 
     unsubscribe
 
     @user.reload
-    assert_equal 0, @user.active_connections
+    assert_equal 1, @user.active_connections
+    assert @user.online?
   end
 
-  test "manually away user is not set online on visible" do
+  test "manually away user is not set online on subscribe" do
     @user.update_columns(manually_away: true, availability: 1)
 
-    subscribe visible: true
+    subscribe
 
     @user.reload
     assert_equal 1, @user.active_connections
@@ -97,7 +65,7 @@ class UserPresenceChannelTest < ActionCable::Channel::TestCase
   end
 
   test "heartbeat refreshes last_active_at" do
-    subscribe visible: true
+    subscribe
 
     @user.update_column(:last_active_at, 10.minutes.ago)
 

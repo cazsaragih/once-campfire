@@ -2,26 +2,11 @@ class UserPresenceChannel < ApplicationCable::Channel
   def subscribed
     stream_from "availability_updates"
 
-    @visible = params[:visible] != false
-    current_user.mark_visible if @visible
+    current_user.mark_connected
   end
 
   def unsubscribed
-    current_user.mark_hidden if @visible
-  end
-
-  def visible
-    unless @visible
-      @visible = true
-      current_user.mark_visible
-    end
-  end
-
-  def hidden
-    if @visible
-      @visible = false
-      current_user.mark_hidden
-    end
+    current_user.mark_disconnected
   end
 
   def heartbeat
