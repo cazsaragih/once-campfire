@@ -19,6 +19,7 @@
 <% content_for :sidebar, sidebar_turbo_frame_tag(src: user_sidebar_path) %>
 
 <div id="message-area" class="message-area">
+  <!-- DEBUG: pinned_messages count=<%= @pinned_messages.size %>, IDs=<%= @pinned_messages.map(&:id).join(",") %> -->
   <% if @pinned_messages.empty? %>
     <div class="message-area--empty min-width center">
       <figure class="center pad">
