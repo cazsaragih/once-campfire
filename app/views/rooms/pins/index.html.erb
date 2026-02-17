@@ -3,6 +3,7 @@
 
 <% content_for :head do %>
   <meta name="current-room-id" content="<%= @room.id %>">
+  <style>.message { visibility: visible; }</style>
 <% end %>
 
 <% content_for :nav do %>
@@ -19,7 +20,6 @@
 <% content_for :sidebar, sidebar_turbo_frame_tag(src: user_sidebar_path) %>
 
 <div id="message-area" class="message-area">
-  <!-- DEBUG: pinned_messages count=<%= @pinned_messages.size %>, IDs=<%= @pinned_messages.map(&:id).join(",") %> -->
   <% if @pinned_messages.empty? %>
     <div class="message-area--empty min-width center">
       <figure class="center pad">
@@ -30,7 +30,6 @@
   <% else %>
     <div class="messages">
       <% @pinned_messages.each do |message| %>
-        <!-- DEBUG: rendering message #<%= message.id %> by <%= message.creator.name %> -->
         <%= render partial: "messages/message", object: message, as: :message %>
       <% end %>
     </div>
