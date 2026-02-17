@@ -24,8 +24,8 @@
 
 <div id="message-area" class="message-area">
   <% if @pinned_messages.empty? %>
-    <div class="message-area--empty min-width center">
-      <figure class="center pad">
+    <div class="message-area--empty" style="text-align: center;">
+      <figure class="pad">
         <%= image_tag "pin.svg", aria: { hidden: "true" }, class: "colorize--black translucent", size: 48 %>
       </figure>
       <p class="translucent">No pinned messages yet</p>
