@@ -14,13 +14,16 @@ module User::AutoPresence
   end
 
   def mark_connected
-    increment!(:active_connections, touch: :last_active_at)
+    self.class.update_counters(id, active_connections: 1)
+    touch(:last_active_at)
+    reload
     auto_set_online unless manually_away?
   end
 
   def mark_disconnected
-    decrement!(:active_connections)
-    update_column(:active_connections, 0) if active_connections < 0
+    self.class.update_counters(id, active_connections: -1)
+    self.class.where(id: id).where("active_connections < 0").update_all(active_connections: 0)
+    reload
     auto_set_away if active_connections < 1
   end
 
