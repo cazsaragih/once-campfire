@@ -7,7 +7,12 @@ class Users::ProfilesController < ApplicationController
   end
 
   def update
-    @user.update user_params
+    if params[:user][:availability].present?
+      handle_availability_change(params[:user][:availability])
+    else
+      @user.update user_params
+    end
+
     redirect_to user_profile_url, notice: update_notice
   end
 
@@ -17,7 +22,15 @@ class Users::ProfilesController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :avatar, :email_address, :password, :bio, :availability).compact
+      params.require(:user).permit(:name, :avatar, :email_address, :password, :bio).compact
+    end
+
+    def handle_availability_change(new_availability)
+      if new_availability == "away"
+        @user.set_manually_away!
+      else
+        @user.set_manually_active!
+      end
     end
 
     def update_notice
