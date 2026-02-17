@@ -30,6 +30,7 @@
   <% else %>
     <div class="messages">
       <% @pinned_messages.each do |message| %>
+        <!-- DEBUG: rendering message #<%= message.id %> by <%= message.creator.name %> -->
         <%= render partial: "messages/message", object: message, as: :message %>
       <% end %>
     </div>
